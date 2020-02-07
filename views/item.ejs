@@ -1,0 +1,24 @@
+<div class="card border-primary mt-3 mb-3">
+    <div class="card-body">
+        <h5 class="card-title"><%= id_keihi %></h5>
+        <p class="card-text">精算月：<%= ym_seisan %></p>
+        <p class="card-text">支払情報：<%= name_shiharai %>　<%= ymd_shiharai %></p>
+        <p class="card-text">受取情報：<%= name_uketori %>　<%= ymd_uketori %></p>
+        <div class="row">
+            <% if ((locals.user.name === name_shiharai) || (locals.user.name === name_uketori)){ %>
+            <div class="col-md-6 mb-3">
+                <a class="btn btn-outline-primary btn-sm"
+                    href="/keihi/seisan?id_keihi=<%= id_keihi %>&q=<%= value %>&page=<%= pagenation.current %>&incComp=<%= incComp %>">精算</a>
+            </div>
+            <% }; %>
+            <% if (locals.user.role === 'admin'){ %>
+            <div class="col-md-6 mb-3">
+                <a class="btn btn-outline-primary btn-sm"
+                    href="/keihi/koushin?id_keihi=<%= id_keihi %>&q=<%= value %>&page=<%= pagenation.current %>&incComp=<%= incComp %>">更新</a>
+                <a class="btn btn-outline-primary btn-sm"
+                    href="/keihi/sakujyo?id_keihi=<%= id_keihi %>&q=<%= value %>&page=<%= pagenation.current %>&incComp=<%= incComp %>">削除</a>
+            </div>
+            <% }; %>
+        </div>
+    </div>
+</div>

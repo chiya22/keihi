@@ -1,0 +1,25 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}\\bin\\www",
+            "env": {
+                "DB_USER": "postgres",
+                "DB_PASS": "Mdoy3681Jitian6581",
+                "DB_NAME": "postgres",
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "db test",
+            "program": "${workspaceFolder}\\lib\\db\\demo"
+        }
+    ]
+}

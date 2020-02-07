@@ -1,0 +1,167 @@
+<!Doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>経費精算</title>
+    <%- include("./common/stylesheets.ejs") %>
+</head>
+
+<body>
+    <%- include('./common/navi.ejs', {select:"admin"}) %>
+    <main role="main" class="container">
+        <form method="POST" action="">
+            <%
+            var errors = locals.errors || {};
+            var original = locals.original || {};
+            %>
+            <% if (locals.errors) { %>
+            <div class="alert alert-danger">
+                <%  for (let key in errors) { %>
+                <div><i class="fa fa-exclamation-circle fa-fw mr-2"></i><%= errors[key] %></div>
+                <% } %>
+            </div>
+            <% }%>
+            <h3><%= keihi.id_keihi %></h3>
+            <div class="form-group">
+                <% if ((mode === 'delete') || (mode ==='seisan')) { %>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="ym_seisan">精算月</label>
+                        <text readonly class="form-control <%= errors.title ? 'is-valid' : '' %>" name="ym_seisan"
+                            id="ym_seisan"><%= keihi.ym_seisan %></text>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="name_shiharai">支払者</label>
+                        <text readonly class="form-control" name="name_shiharai"
+                            id="name_shiharai"><%= keihi.name_shiharai %></text>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="name_shiharai">支払日</label>
+                        <text readonly class="form-control" name="ymd_shiharai"
+                            id="ymd_shiharai"><%= keihi.ymd_shiharai %></text>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="name_uketori">受取者</label>
+                        <text readonly class="form-control" name="name_uketori"
+                            id="name_uketori"><%= keihi.name_uketori %></text>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="name_uketori">受取日</label>
+                        <text readonly class="form-control" name="ymd_uketori"
+                            id="ymd_uketori"><%= keihi.ymd_uketori %></text>
+                    </div>
+                </div>
+                <% }else{ %>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="ym_seisan">精算月</label>
+                        <input type="text" class="form-control" name="ym_seisan" id="ym_seisan"
+                            placeholder="精算月をyyyymm形式で入力してください" value="<%= keihi.ym_seisan %>" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="name_shiharai">支払者</label>
+                        <input type="text" class="form-control" name="name_shiharai" id="name_shiharai"
+                            placeholder="支払者名を入力してください" value="<%= keihi.name_shiharai %>" />
+                    </div>
+                    <% if (mode !== 'create') { %>
+                    <div class="col-md-6 mb-3">
+                        <label for="ymd_shiharai">支払日</label>
+                        <input type="text" class="form-control" name="ymd_shiharai" id="ymd_shiharai"
+                            placeholder="支払日をyyyymmdd形式で入力してください" value="<%= keihi.ymd_shiharai %>" />
+                    </div>
+                    <% }else{ %>
+                    <div class="col-md-6 mb-3">
+                        <label for="name_shiharai">支払日</label>
+                        <text readonly class="form-control" name="ymd_shiharai"
+                            id="ymd_shiharai"><%= keihi.ymd_shiharai %></text>
+                    </div>
+                    <% } %>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="name_uketori">受取者</label>
+                        <input type="text" class="form-control" name="name_uketori" id="name_uketori"
+                            placeholder="受取者名を入力してください" value="<%= keihi.name_uketori %>" />
+                    </div>
+                    <% if (mode !== 'create') { %>
+                    <div class="col-md-6 mb-3">
+                        <label for="ymd_uketori">受取日</label>
+                        <input type="text" class="form-control" name="ymd_uketori" id="ymd_uketori"
+                            placeholder="受取日をyyyymmdd形式で入力してください" value="<%= keihi.ymd_uketori %>" />
+                    </div>
+                    <% }else{ %>
+                    <div class="col-md-6 mb-3">
+                        <label for="name_uketori">受取日</label>
+                        <text readonly class="form-control" name="ymd_uketori"
+                            id="ymd_uketori"><%= keihi.ymd_uketori %></text>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+            <% } %>
+            </div>
+            <% if (mode ==='seisan') { %>
+            <% if ((locals.user.name === keihi.name_shiharai) && !(keihi.ymd_shiharai)){ %>
+            <input type="submit" id="btn_shiharai" class="btn btn-primary" data-method="POST"
+                data-action="/keihi/shiharai" value="支払" />
+            <% }; %>
+            <% if ((locals.user.name === keihi.name_shiharai) && (keihi.ymd_shiharai)){ %>
+            <input type="submit" id="btn_shiharai_torikeshi" class="btn btn-primary" data-method="POST"
+                data-action="/keihi/shiharai_torikeshi" value="支払取消" />
+            <% }; %>
+            <% if ((locals.user.name === keihi.name_uketori) && !(keihi.ymd_uketori)){ %>
+            <input type="submit" id="btn_uketori" class="btn btn-primary" data-method="POST"
+                data-action="/keihi/uketori" value="受取" />
+            <% }; %>
+            <% if ((locals.user.name === keihi.name_uketori) && (keihi.ymd_uketori)){ %>
+            <input type="submit" id="btn_uketori_torikeshi" class="btn btn-primary" data-method="POST"
+                data-action="/keihi/uketori_torikeshi" value="受取取消" />
+            <% }; %>
+            <% }; %>
+            <% if (mode === 'create') { %>
+            <input type="submit" id="btn_create" class="btn btn-primary" data-method="POST" data-action="/keihi/create"
+                value="登録" />
+            <% } %>
+            <% if (mode === 'update') { %>
+            <input type="submit" id="btn_update" class="btn btn-primary" data-method="POST" data-action="/keihi/update"
+                value="更新" />
+            <% } %>
+            <% if (mode === 'delete') { %>
+            <input type="submit" id="btn_delete" class="btn btn-primary" data-method="POST" data-action="/keihi/delete"
+                value="削除" />
+            <% } %>
+            <input type="hidden" id="id_keihi" name="id_keihi" value="<%= keihi.id_keihi %>" />
+            <input type="hidden" id="mode" name="mode" value="<%= mode %>" />
+            <input type="hidden" id="q" name="q" value="<%= q %>" />
+            <input type="hidden" id="incComp" name="incComp" value="<%= incComp %>" />
+            <input type="hidden" id="page" name="page" value="<%= page %>" />
+            <a class="btn btn-primary" href="../?value=<%= q %>&page=<%= page %>&incComp=<%= incComp %>" role="button">戻る</a>
+        </form>
+    </main>
+    <%- include("./common/javascripts.ejs") %>
+    <script>
+        const btnSubmit_onclick = function (event) {
+            const $submit = $(this);
+            const $form = $submit.parents("form");
+            $form.attr("method", $submit.data("method"));
+            $form.attr("action", $submit.data("action"));
+            $form.submit();
+            $submit.off().prop("disabled", true);
+            $form.on("submit", false);
+        };
+        const document_onready = function (event) {
+            $("input[type='submit']").on("click", btnSubmit_onclick);
+        };
+        $(document).ready(document_onready);
+    </script>
+</body>
+
+</html>

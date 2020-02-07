@@ -1,0 +1,11 @@
+runtime: nodejs10
+
+instance_class: B1
+manual_scaling:
+  instances: 1
+
+env_variables:
+  DB_USER: postgres
+  DB_PASS: Mdoy3681Jitian6581
+  DB_NAME: postgres
+  CLOUD_SQL_INSTANCE_NAME: simpleproject-256623:us-west1:simpleprojectdb

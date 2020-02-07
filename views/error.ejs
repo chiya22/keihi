@@ -1,0 +1,22 @@
+<!Doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ことば</title>
+    <%- include("./common/stylesheets.ejs") %>
+</head>
+
+<body>
+    <%- include('./common/navi.ejs', {select:"index"}) %>
+    <main role="main" class="container">
+        <h1><%= message %></h1>
+        <h2><%= error.status %></h2>
+        <pre><%= error.stack %></pre>
+
+        <%- include("./common/javascripts.ejs") %>
+    </main>
+</body>
+
+</html>

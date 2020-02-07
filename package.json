@@ -1,0 +1,35 @@
+{
+  "name": "kotoba",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "mocha"
+  },
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.4",
+    "crypto": "^1.0.1",
+    "csrf": "^3.1.0",
+    "debug": "^4.1.1",
+    "ejs": "~2.6.2",
+    "express": "~4.17.1",
+    "express-session": "^1.17.0",
+    "http-errors": "^1.7.3",
+    "knex": "^0.20.1",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.12.1",
+    "process": "^0.11.10"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.1",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^6.2.2"
+  }
+}
